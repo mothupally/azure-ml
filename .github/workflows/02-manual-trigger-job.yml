@@ -60,8 +60,7 @@ jobs:
             job_config = yaml.safe_load(f)
 
         # Create and submit job
-        job = Job(**job_config)
-        ml_client.jobs.create_or_update(job)
+        ml_client.jobs.create_or_update(job_config)
         print(f"Job {job.name} submitted to Azure ML workspace.")
         EOF
 
