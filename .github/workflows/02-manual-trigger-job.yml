@@ -60,7 +60,9 @@ jobs:
             job_config = yaml.safe_load(f)
 
         # Create and submit job
-        ml_client.jobs.create_or_update(job_config)
+        # Convert dictionary to a job object
+        job = load_job(source=job_config)
+        ml_client.jobs.create_or_update(job)
         print(f"Job {job.name} submitted to Azure ML workspace.")
         EOF
 
