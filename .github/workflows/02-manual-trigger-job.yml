@@ -44,6 +44,7 @@ jobs:
         from azure.ai.ml import MLClient
         from azure.identity import DefaultAzureCredential
         from azure.ai.ml.entities import Job
+        from azure.ai.ml.entities import load_job
 
         # Authenticate with Azure ML
         credential = DefaultAzureCredential()
