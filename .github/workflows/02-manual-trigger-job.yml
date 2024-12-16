@@ -9,7 +9,7 @@ on:
       job_config:
         description: 'Path to the job YAML configuration file'
         required: true
-        default: 'src/jobwithcluster.yml'
+        default: 'src/job.yml'
 jobs:
   train:
     runs-on: ubuntu-latest
