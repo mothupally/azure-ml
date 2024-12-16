@@ -28,6 +28,7 @@ jobs:
       run: |
         python -m pip install --upgrade pip
         pip install azure-ai-ml azure-identity
+        pip install --upgrade azure-ai-ml
 
     - name: Azure login
       uses: azure/login@v1
@@ -40,30 +41,5 @@ jobs:
         AZURE_RESOURCE_GROUP: ${{ secrets.AZURE_RESOURCE_GROUP }}
         AZURE_ML_WORKSPACE: ${{ secrets.AZURE_ML_WORKSPACE }}
       run: |
-        python <<EOF
-        from azure.ai.ml import MLClient
-        from azure.identity import DefaultAzureCredential
-        from azure.ai.ml.entities import Job
-        from azure.ai.ml.entities import load_job
-
-        # Authenticate with Azure ML
-        credential = DefaultAzureCredential()
-        ml_client = MLClient(
-            credential=credential,
-            subscription_id='${{ secrets.AZURE_SUBSCRIPTION_ID }}',
-            resource_group_name='${{ secrets.AZURE_RESOURCE_GROUP }}',
-            workspace_name='${{ secrets.AZURE_ML_WORKSPACE }}'
-        )
-
-        # Load job configuration
-        import yaml
-        with open('${{ github.event.inputs.job_config }}', 'r') as f:
-            job_config = yaml.safe_load(f)
-
-        # Create and submit job
-        # Convert dictionary to a job object
-        job = load_job(source=job_config)
-        ml_client.jobs.create_or_update(job)
-        print(f"Job {job.name} submitted to Azure ML workspace.")
-        EOF
-
+        az ml job create --file ${{ github.event.inputs.job_config }} --workspace-name ${{ secrets.AZURE_ML_WORKSPACE }} --resource-group ${{ secrets.AZURE_RESOURCE_GROUP }} --subscription-id ${{ secrets.AZURE_SUBSCRIPTION_ID }}  
+      
