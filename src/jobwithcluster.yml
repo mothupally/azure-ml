@@ -9,6 +9,6 @@ inputs:
     path: azureml://subscriptions/569e6a64-f28c-4e89-a7da-aff5c3904113/resourcegroups/rg_india_ml/workspaces/ml-india/datastores/workspaceblobstore/paths/UI/2024-12-11_085617_UTC/data/
   reg_rate: 0.01
 environment: azureml:AzureML-sklearn-0.24-ubuntu18.04-py37-cpu@latest
-compute: serviceprincipalcomputeclust
+compute: serviceprincipalcomputecluster
 experiment_name: LogisticRegression
 description: LogisticRegression
